@@ -10,3 +10,12 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+
+.delete{
+    background-color:transparent;
+    color:red;
+    font-weight:900;
+    border:0px solid;
+    border-radius:100%;
+}
+

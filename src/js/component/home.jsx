@@ -9,11 +9,13 @@ import MyCounter from "./counter.jsx";
 const Home = () => {
 	return (
 		<>
-			<div>
-				<MyCounter />
-			</div>
-			<div>
-				<MyToDoList />
+			<div class="container mt-5">
+				<div class="row d-flex justify-content-center">
+					<div class="col-4 card bg-light border border-primary">
+						<h2 class="text-center text-primary">My List</h2>
+						<MyToDoList />
+					</div>
+				</div>
 			</div>
 		</>
 	);
