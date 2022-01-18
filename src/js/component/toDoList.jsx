@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 
 const MyToDoList = () => {
-	let [toDoList, setToDoList] = useState(["foo", "fooo"]);
+	let [toDoList, setToDoList] = useState(["teste", "teste23"]);
+
+	function handleSubmit(event) {
+		event.preventDefault();
+	}
 
 	return (
 		<>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<label>
-					<input
-						type="text"
-						value={value}
-						onChange={(e) => e.value}
-					/>
+					<input />
 					<input
 						type="submit"
-						onClick={() => setToDoList([...toDoList, value])}
+						value="Submit"
+						onClick={() =>
+							setToDoList((prevState) => [...prevState, "yay"])
+						}
 					/>
 				</label>
 			</form>
@@ -24,6 +27,7 @@ const MyToDoList = () => {
 					<li key={i}>{listEntry}</li>
 				))}
 			</ul>
+			<h1>{toDoList}</h1>
 		</>
 	);
 };
