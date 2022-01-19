@@ -41,26 +41,28 @@ const MyToDoList = () => {
 								formValue,
 							])
 						}>
-						Add
+						<i class="fas fa-plus-circle"></i>
 					</button>
 				</div>
 			</form>
 
 			{toDoList.map((listEntry, i) => (
-				<div class="card mt-2 mb-2">
-					<div class="row mt-2 mb-2 d-flex justify-content-center">
-						<div key={i} class="col-10">
+				<>
+					<div class="d-flex justify-content-between mt-2 mb-2 ">
+						<div
+							key={i}
+							class="col-10 bg-light bg-gradient pt-1 pb-1 ps-2 pe-2 border-bottom border-secondary">
 							{listEntry}
 						</div>
-						<div class="col-1">
+						<div class="col-1 me-2">
 							<button
-								class="delete"
+								class="btn btn-danger"
 								onClick={() => removeItem(i)}>
 								<i class="fas fa-minus-circle"></i>
 							</button>
 						</div>
 					</div>
-				</div>
+				</>
 			))}
 		</>
 	);
