@@ -3,6 +3,11 @@ import React, { useState } from "react";
 const MyToDoList = () => {
 	let [toDoList, setToDoList] = useState([]);
 	let [formValue, setFormValue] = useState("");
+
+	let fetchVar = "";
+
+	let testever = "teste 342";
+
 	//let onChangeValue = "";
 
 	function handleSubmit(event) {
@@ -16,6 +21,43 @@ const MyToDoList = () => {
 		temp.splice(i, 1);
 
 		setToDoList(temp);
+	}
+
+	function fetchList() {
+		fetchVar = fetch(
+			"https://assets.breatheco.de/apis/fake/todos/user/besmarques",
+			{
+				method: "GET",
+				//body: JSON.stringify(formValue),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+
+		document.getElementById("showfetch").innerHTML = fetchVar;
+	}
+
+	function addToApi() {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/besmarques", {
+			method: "PUT",
+			body: JSON.stringify([
+				{
+					label: listEntry,
+					done: false,
+				},
+			]),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		/*[
+			{
+				label: "teste",
+				done: false,
+			},
+		];*/
 	}
 
 	return (
@@ -45,7 +87,6 @@ const MyToDoList = () => {
 					</button>
 				</div>
 			</form>
-
 			{toDoList.map((listEntry, i) => (
 				<>
 					<div class="d-flex justify-content-between mt-2 mb-2 ">
@@ -64,6 +105,15 @@ const MyToDoList = () => {
 					</div>
 				</>
 			))}
+
+			<button className="btn btn-danger" onClick={addToApi}>
+				add to api
+			</button>
+
+			<button className="btn btn-danger" onClick={fetchList}>
+				Fetch
+			</button>
+			<div id="showfetch"></div>
 		</>
 	);
 };
