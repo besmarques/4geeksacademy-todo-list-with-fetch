@@ -23,19 +23,39 @@ const MyToDoList = () => {
 		setToDoList(temp);
 	}
 
-	function fetchList() {
-		fetchVar = fetch(
-			"https://assets.breatheco.de/apis/fake/todos/user/besmarques",
-			{
-				method: "GET",
-				//body: JSON.stringify(formValue),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
+	function myCreateusername() {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/besmarques", {
+			method: "POST",
+			body: JSON.stringify([]),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	}
 
-		document.getElementById("showfetch").innerHTML = fetchVar;
+	function fetchList() {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/besmarques", {
+			method: "GET",
+			//body: JSON.stringify(todos),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((resp) => {
+				//console.log("response ok " + resp.ok); // will be true if the response is successfull
+				//console.log("response status " + resp.status); // the status code = 200 or code = 400 etc.
+				//console.log("response text " + resp.text()); // will try return the exact result as string
+				return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+			})
+			.then((data) => {
+				//here is were your code should start after the fetch finishes
+				console.log("response data " + data); //this will print on the console the exact object received from the server
+				document.getElementById("showfetch").innerHTML = JSON.stringify(
+					data[0]["label"]
+				);
+			});
+
+		//document.getElementById("showfetch").innerHTML = data;
 	}
 
 	function addToApi() {
@@ -43,7 +63,7 @@ const MyToDoList = () => {
 			method: "PUT",
 			body: JSON.stringify([
 				{
-					label: listEntry,
+					label: "listEntry",
 					done: false,
 				},
 			]),
@@ -51,13 +71,6 @@ const MyToDoList = () => {
 				"Content-Type": "application/json",
 			},
 		});
-
-		/*[
-			{
-				label: "teste",
-				done: false,
-			},
-		];*/
 	}
 
 	return (
@@ -105,6 +118,8 @@ const MyToDoList = () => {
 					</div>
 				</>
 			))}
+
+			{myCreateusername()}
 
 			<button className="btn btn-danger" onClick={addToApi}>
 				add to api
