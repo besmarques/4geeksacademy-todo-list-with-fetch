@@ -4,12 +4,6 @@ const MyToDoList = () => {
 	let [toDoList, setToDoList] = useState([]);
 	let [formValue, setFormValue] = useState("");
 
-	let fetchVar = "";
-
-	let testever = "teste 342";
-
-	//let onChangeValue = "";
-
 	function handleSubmit(event) {
 		event.preventDefault();
 		setFormValue("");
@@ -36,7 +30,6 @@ const MyToDoList = () => {
 	function fetchList() {
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/besmarques", {
 			method: "GET",
-			//body: JSON.stringify(todos),
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -49,24 +42,29 @@ const MyToDoList = () => {
 			})
 			.then((data) => {
 				//here is were your code should start after the fetch finishes
-				console.log("response data " + data); //this will print on the console the exact object received from the server
-				document.getElementById("showfetch").innerHTML = JSON.stringify(
-					data[0]["label"]
-				);
+				//console.log("response data " + data); //this will print on the console the exact object received from the server
+				document.getElementById("showfetch").innerHTML =
+					JSON.stringify(data);
 			});
 
 		//document.getElementById("showfetch").innerHTML = data;
 	}
 
-	function addToApi() {
+	function updateList() {
+		let apiObject = [];
+
+		for (let zxc = 0; zxc < toDoList.length; zxc++) {
+			apiObject[zxc] = {
+				label: toDoList[zxc],
+				done: false,
+			};
+		}
+
+		console.log(apiObject);
+
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/besmarques", {
 			method: "PUT",
-			body: JSON.stringify([
-				{
-					label: "listEntry",
-					done: false,
-				},
-			]),
+			body: JSON.stringify(apiObject),
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -91,10 +89,10 @@ const MyToDoList = () => {
 						class="btn btn-primary"
 						type="submit"
 						onClick={() =>
-							setToDoList((prevState) => [
-								...prevState,
-								formValue,
-							])
+							setToDoList(
+								(prevState) => [...prevState, formValue],
+								updateList()
+							)
 						}>
 						<i class="fas fa-plus-circle"></i>
 					</button>
@@ -121,7 +119,7 @@ const MyToDoList = () => {
 
 			{myCreateusername()}
 
-			<button className="btn btn-danger" onClick={addToApi}>
+			<button className="btn btn-danger" onClick={updateList}>
 				add to api
 			</button>
 
