@@ -9,6 +9,10 @@ const MyTestesApp = () => {
 
 	useEffect(() => getDataFromCloud(), []);
 
+	//useEffect(() => localToCloud(), [toDoList]);
+
+	//useEffect(() => deleteFromCloud(), [toDoList]);
+
 	function getDataFromCloud() {
 		fetch(url, {
 			method: "GET",
@@ -82,13 +86,17 @@ const MyTestesApp = () => {
 	function removeItem(i) {
 		let temp = [...toDoList];
 
+		console.log("Temp1", temp);
+
 		temp.splice(i, 1);
+
+		console.log("Temp2", temp);
 
 		setToDoList(temp);
 		console.log("remove item function temp " + temp);
 		console.log("remove item function toDoList " + toDoList);
 
-		localToCloud();
+		//localToCloud(temp);
 	}
 
 	function createForm() {

@@ -5,6 +5,7 @@ import React from "react";
 import MyToDoList from "./toDoList.jsx";
 import MyCounter from "./counter.jsx";
 import MyTestesApp from "./teste.jsx";
+import List from "./listsolve3.jsx";
 
 //create your first component
 const Home = () => {
@@ -17,7 +18,8 @@ const Home = () => {
 							<i className="fas fa-list"></i> My List
 						</h2>
 						{/*<MyToDoList />*/}
-						<MyTestesApp />
+						{/*<MyTestesApp />*/}
+						<List />
 					</div>
 				</div>
 			</div>
