@@ -49,7 +49,7 @@ const MyToDoList = () => {
 
 	function myCreateusername() {
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/besmarques", {
-			method: "POST",
+			method: "DELETE",
 			body: JSON.stringify([]),
 			headers: {
 				"Content-Type": "application/json",

@@ -7,7 +7,9 @@ const MyTestesApp = () => {
 	let [toDoList, setToDoList] = useState([]);
 	let [formValue, setFormValue] = useState("");
 
-	useEffect(() => {
+	useEffect(() => getDataFromCloud(), []);
+
+	function getDataFromCloud() {
 		fetch(url, {
 			method: "GET",
 			headers: {
@@ -15,7 +17,11 @@ const MyTestesApp = () => {
 			},
 		})
 			.then((resp) => {
-				return resp.json();
+				if (resp.ok) {
+					return resp.json();
+				} else {
+					myCreateUsername();
+				}
 			})
 			.then((data) => {
 				JSON.stringify(data);
@@ -28,9 +34,20 @@ const MyTestesApp = () => {
 				setToDoList(ToDoWorkingVar);
 			});
 		console.log(toDoList);
-	}, []);
+	}
+
+	function myCreateUsername() {
+		fetch(url, {
+			method: "POST",
+			body: JSON.stringify([]),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	}
 
 	function localToCloud() {
+		console.log("localToCloud function todolist " + toDoList);
 		for (let zxc = 0; zxc < toDoList.length; zxc++) {
 			apiObject[zxc] = {
 				label: toDoList[zxc],
@@ -55,12 +72,21 @@ const MyTestesApp = () => {
 		localToCloud();
 	}
 
+	function deleteFromCloud() {
+		fetch(url, {
+			method: "DELETE",
+		});
+		setToDoList([]);
+	}
+
 	function removeItem(i) {
 		let temp = [...toDoList];
 
 		temp.splice(i, 1);
 
 		setToDoList(temp);
+		console.log("remove item function temp " + temp);
+		console.log("remove item function toDoList " + toDoList);
 
 		localToCloud();
 	}
@@ -119,10 +145,25 @@ const MyTestesApp = () => {
 		));
 	}
 
+	function showDelete() {
+		return (
+			<>
+				<div className="">
+					<button
+						className="btn btn-danger"
+						onClick={() => deleteFromCloud()}>
+						delete
+					</button>
+				</div>
+			</>
+		);
+	}
+
 	return (
 		<>
 			{createForm()}
 			{showToDoList()}
+			{showDelete()}
 		</>
 	);
 };
