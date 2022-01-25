@@ -19,13 +19,13 @@ const List = () => {
 			return vardsa;
 		});*/
 
-	let [count, setCount] = useState(0);
-
 	useEffect(() => {
-		console.log(toDoList);
+		console.log("yeah");
 	}, [toDoList]);
 
-	//useEffect(() => {}, [toDoList]);
+	function addToDoList() {
+		setToDoList((prevState) => [...prevState, "added 1"]);
+	}
 
 	function deleteFromToDoList() {
 		let temp = [...toDoList];
@@ -37,20 +37,9 @@ const List = () => {
 
 	return (
 		<>
-			<div>{count}</div>
-			<button
-				onClick={() => {
-					setCount(count + 1);
-				}}>
-				add 1
-			</button>
+			<div>{toDoList}</div>
 
-			<button
-				onClick={() =>
-					setToDoList((prevState) => [...prevState, "added 1"])
-				}>
-				add to do list
-			</button>
+			<button onClick={() => addToDoList()}>add to do list</button>
 
 			<button onClick={() => deleteFromToDoList()}>
 				remove to do list
